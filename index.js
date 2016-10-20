@@ -1,13 +1,16 @@
-const net = require('net');
+const http = require('http');
 
-const server = net.createServer((c) => {
-  c.pipe(c);
+const server = http.createServer((request, response) => {
+  if (request.method === "GET") {
+    const parsedRequestUrl = require('url').parse(request.url, true);
+
+    if ((typeof(parsedRequestUrl.query) !== undefined) && (typeof(parsedRequestUrl.query.message) !== undefined)) {
+      response.writeHead(200, { 'Content-Type': 'text/plain'});
+      response.write(parsedRequestUrl.query.message.toUpperCase() + "\n");
+    }
+  }
+
+  response.end();
 });
 
-server.on('error', (err) => {
-  throw err;
-});
-
-server.listen(2000, () => {
-  console.log('Server Running on port 2000');
-});
+server.listen(80);

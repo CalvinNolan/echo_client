@@ -9,7 +9,6 @@
   "author": "Calvin Nolan",
   "license": "ISC",
   "dependencies": {
-    "http": "0.0.0",
-    "net": "^1.0.2"
+    "http": "0.0.0"
   }
 }
