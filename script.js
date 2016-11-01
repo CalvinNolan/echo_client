@@ -5,12 +5,12 @@ if (typeof(process.argv[2]) === 'undefined' || typeof(process.argv[3]) === 'unde
   console.log("Invalid arguments! \nPlease include 'node script.js host-address port-number path message' in that order.");
 } else {
   // Create the socket connection
-  const client = net.connect({port: process.argv[3], host: process.argv[2], path: process.argv[4]});
+  const client = net.connect({port: process.argv[3], host: process.argv[2]});
 
   // When the connection is opened, send the GET request immediately.
   // The message is expected to be UTF-8 encoded.
   client.on('connect', function() {
-      client.write("GET /?message=" + process.argv[5] + " HTTP/1.1\r\n\r\n");
+      client.write("GET " + process.argv[4] + "/?message=" + process.argv[5] + " HTTP/1.1\r\n\r\n");
   });
 
   // When a response is given to the GET request, output it and close the connection.
